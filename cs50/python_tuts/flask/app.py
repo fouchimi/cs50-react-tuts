@@ -1,14 +1,10 @@
-from flask import Flask 
+from flask import Flask, render_template
+import datetime
 
 app = Flask(__name__)
 
 @app.route("/")
-def index():
-    return "Hello, World!"
-
-@app.route("/<string:name1>/<string:name2>")
-@app.route("/<string:name1>")
-def hello(name1, name2="Josh"):
-    name1 = name1.capitalize()
-    name2 = name2.capitalize()
-    return f"Hello, {name1} and {name2}!"
+def hello():
+    now = datetime.datetime.now()
+    is_new_years = now.day == 1 and now.month == 1
+    return render_template("index.html", is_new_years = is_new_years)
